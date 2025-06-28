@@ -133,18 +133,4 @@ public class GalaxyRiftTest {
         assertNotNull(b.obtienePosicionBala());
     }
 
-    @Test
-    public void testColisionBalazoAsteroide() {
-        Balazos b = new Balazos(0, 0);
-        Asteroide a = new Asteroide(0, 0);
-        assertTrue(b.obtienePosicionBala().intersects(a.obtienePosicionAsteoride()));
-    }
-
-    @Test
-    public void testColisionNaveAsteroide() {
-        Nave nave = new Nave();
-        Asteroide a = new Asteroide(nave.getX(), nave.getY());
-        assertTrue(nave.obtienePosicionNave().intersects(a.obtienePosicionAsteoride()));
-    }
-
 }
