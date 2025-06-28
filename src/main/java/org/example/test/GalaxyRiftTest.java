@@ -25,103 +25,126 @@ public class GalaxyRiftTest {
     @Test
     public void testNaveInicializaConVidaTres() {
         Nave nave = new Nave();
-        assertEquals(5, nave.getVida());
+        assertEquals(3, nave.getVida());
     }
+
     @Test
     public void testNavePierdeUnaVida() {
         Nave nave = new Nave();
         nave.perderVida();
-        assertEquals(3, nave.getVida());
+        assertEquals(2, nave.getVida());
     }
+
     @Test
     public void testNavePierdeTodasLasVidas() {
         Nave nave = new Nave();
         nave.perderVida();
         nave.perderVida();
         nave.perderVida();
-        assertEquals(1, nave.getVida()); // falla porque esperamos 0
+        assertEquals(0, nave.getVida());
     }
+
     @Test
     public void testGetVelocidadNave() {
         Nave nave = new Nave();
-        assertEquals(2, nave.getVelocidad());
+        assertEquals(1, nave.getVelocidad());
     }
+
     @Test
     public void testGetAnchoNave() {
         Nave nave = new Nave();
-        assertEquals(50, nave.getAncho());
+        assertEquals(99, nave.getAncho());
     }
+
     @Test
     public void testGetAltoNave() {
         Nave nave = new Nave();
-        assertEquals(60, nave.getAlto());
+        assertEquals(57, nave.getAlto());
     }
+
     @Test
     public void testSetXYNave() {
         Nave nave = new Nave();
-        nave.setX(150);
-        nave.setY(250);
-        assertEquals(0, nave.getX());
+        nave.setX(100);
+        nave.setY(200);
+        assertEquals(100, nave.getX());
+        assertEquals(200, nave.getY());
     }
-    @Test public void testHitboxNave() {
+
+    @Test
+    public void testHitboxNave() {
         Nave nave = new Nave();
-        assertNull(nave.obtienePosicionNave());
+        assertNotNull(nave.obtienePosicionNave());
     }
+
     @Test
     public void testAsteroideInicializacion() {
-        Asteroide a = new Asteroide(0, 0);
-        assertEquals(false, a.isVisible());
+        Asteroide a = new Asteroide(10, 20);
+        assertTrue(a.isVisible());
+        assertEquals(30, a.getAncho());
+        assertEquals(30, a.getAlto());
     }
+
     @Test
     public void testAsteroideMovimiento() {
         Asteroide a = new Asteroide(0, 0);
         a.mover();
-        assertEquals(0, a.getY());
+        assertEquals(1, a.getY());
     }
+
     @Test
     public void testAsteroideInvisibleFueraPantalla() {
-        Asteroide a = new Asteroide(0, 701);
+        Asteroide a = new Asteroide(0, 700);
         a.mover();
-        assertTrue(a.isVisible());
+        assertFalse(a.isVisible());
     }
+
     @Test
     public void testHitboxAsteroide() {
         Asteroide a = new Asteroide(0, 0);
-        assertNull(a.obtienePosicionAsteoride());
+        assertNotNull(a.obtienePosicionAsteoride());
     }
+
     @Test
     public void testBalazoInicializacion() {
-        Balazos b = new Balazos(0, 0);
-        assertEquals(false, b.isVisible());
+        Balazos b = new Balazos(10, 20);
+        assertTrue(b.isVisible());
+        assertEquals(8, b.getAncho());
+        assertEquals(70, b.getAlto());
     }
+
     @Test
     public void testBalazoMovimiento() {
         Balazos b = new Balazos(0, 100);
         b.mover();
-        assertEquals(100, b.getY());
+        assertEquals(95, b.getY());
     }
+
     @Test
     public void testBalazoInvisibleFueraPantalla() {
         Balazos b = new Balazos(0, 1);
         b.mover();
-        assertTrue(b.isVisible());
+        assertFalse(b.isVisible());
     }
+
     @Test
     public void testHitboxBalazo() {
         Balazos b = new Balazos(0, 0);
-        assertNull(b.obtienePosicionBala());
+        assertNotNull(b.obtienePosicionBala());
     }
+
     @Test
     public void testColisionBalazoAsteroide() {
         Balazos b = new Balazos(0, 0);
-        Asteroide a = new Asteroide(200, 200);
-        assertTrue(b.obtienePosicionBala().intersects(a.obtienePosicionAsteoride())); // debe fallar
+        Asteroide a = new Asteroide(0, 0);
+        assertTrue(b.obtienePosicionBala().intersects(a.obtienePosicionAsteoride()));
     }
+
     @Test
     public void testColisionNaveAsteroide() {
         Nave nave = new Nave();
-        Asteroide a = new Asteroide(500, 500);
-        assertTrue(nave.obtienePosicionNave().intersects(a.obtienePosicionAsteoride())); // no colisiona
+        Asteroide a = new Asteroide(nave.getX(), nave.getY());
+        assertTrue(nave.obtienePosicionNave().intersects(a.obtienePosicionAsteoride()));
     }
 
 }
